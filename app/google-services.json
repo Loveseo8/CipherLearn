@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "68654979629",
+    "firebase_url": "https://cipherlearn.firebaseio.com",
+    "project_id": "cipherlearn",
+    "storage_bucket": "cipherlearn.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:68654979629:android:72c064a99cc321da56b6a4",
+        "android_client_info": {
+          "package_name": "com.add.cipherlearn"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "68654979629-c62p4om89vtrdrr3lsg43f7ps7itq8gf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBNplEMC068VmH9poimDS0U0t4-TBposxs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "68654979629-c62p4om89vtrdrr3lsg43f7ps7itq8gf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
