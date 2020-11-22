@@ -19,12 +19,15 @@ public class MainActivity extends AppCompatActivity {
     int position = 0;
     String [] ciphers = {"Atbash Cipher", "Polybius Square", "Porta", "Vigenere", "Autokey", "Playfair", "Random", "ROT13", "Caesar Cipher", "Affine Cipher", "Rail-fence"};
     TextView cipher_text;
-    SharedPreferences cipher_name;
+    SharedPreferences sharedPreferencesCipher;
+    String ID_CIPHER = "cipher name";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        sharedPreferencesCipher = getSharedPreferences(ID_CIPHER, MODE_PRIVATE);
 
         left = findViewById(R.id.left);
         right = findViewById(R.id.right);
@@ -57,6 +60,11 @@ public class MainActivity extends AppCompatActivity {
         learn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                SharedPreferences.Editor cipher = sharedPreferencesCipher.edit();
+                cipher.putString(ID_CIPHER, cipher_text.getText().toString());
+                cipher.commit();
+
                 Intent i = new Intent(MainActivity.this, Learn.class);
                 startActivity(i);
             }
@@ -65,6 +73,11 @@ public class MainActivity extends AppCompatActivity {
         practice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                SharedPreferences.Editor cipher = sharedPreferencesCipher.edit();
+                cipher.putString(ID_CIPHER, cipher_text.getText().toString());
+                cipher.commit();
+
                 Intent i = new Intent(MainActivity.this, Practice.class);
                 startActivity(i);
             }
