@@ -19,6 +19,7 @@ import com.google.firebase.storage.StorageReference;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.util.Scanner;
 
 public class Learn extends AppCompatActivity {
@@ -46,62 +47,44 @@ public class Learn extends AppCompatActivity {
 
         }
 
+        documentView = findViewById(R.id.webview);
+
         getSupportActionBar().setTitle(cipher_name);
 
-        pathReference = storageRef.child("Learn/" + cipher_name + ".html");
+        pathReference = storageRef.child("Learn/" + cipher_name.replace(" ", "") + ".html");
+
 
         final File localFile;
         try {
-            localFile = new File(getCacheDir(), cipher_name + ".html");
-            if (!localFile.exists() || localFile.length() == 0){
-                localFile.createNewFile();
-                pathReference.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
-                    @Override
-                    public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-                        Log.d("TAGA", "onSuccess");
-                        try {
-                            Scanner sc = new Scanner(localFile);
+            localFile = File.createTempFile(cipher_name.replace(" ", ""), ".html");
 
-                            while(sc.hasNextLine()){
-                                Log.d("TAGA", sc.nextLine());
-                            }
+            pathReference.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
 
-                            documentView = findViewById(R.id.webview);
-                            documentView.loadUrl(localFile.getCanonicalPath());
+                    documentView.getSettings().setJavaScriptEnabled(true);
+                    documentView.getSettings().setAllowFileAccess(true);
+                    documentView.getSettings().setAllowContentAccess(true);
+                    documentView.getSettings().setAppCacheEnabled(true);
+                    documentView.getSettings().setDomStorageEnabled(true);
+                    documentView.getSettings().setUseWideViewPort(true);
+                    documentView.getSettings().setAllowFileAccessFromFileURLs(true);
+                    documentView.getSettings().setAllowUniversalAccessFromFileURLs(true);
 
-                        } catch (FileNotFoundException e) {
-                            Log.d("TAGA", "FileNotFoundException");
-                            e.printStackTrace();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception exception) {
-                        // Handle any errors
-                        Log.d("TAGA", "onFailure: " + exception.getMessage());
-                    }
-                }).addOnProgressListener(new OnProgressListener<FileDownloadTask.TaskSnapshot>() {
-                    @Override
-                    public void onProgress(FileDownloadTask.TaskSnapshot taskSnapshot) {
-                        Log.d("TAGA", "onProgress");
-                        // taskSnapshot.getBytesTransferred()
-                        // taskSnapshot.getTotalByteCount();
-                    }
-                });
-            }else{
-                Log.d("TAGA", "fromCacheDir" + "   " + localFile.toURI());
-                Scanner sc = new Scanner(localFile);
-                while(sc.hasNextLine()){
-                    Log.d("TAGA", sc.nextLine());
+                    documentView.loadUrl("file:///" + localFile.getPath());
                 }
-
-                documentView = findViewById(R.id.webview);
-                documentView.loadUrl("file:///" + getCacheDir().getAbsolutePath() + "/" + cipher_name + ".html");
-            }
-//            localFile = File.createTempFile(cipher_name, "html");
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception exception) {
+                    // Handle any errors
+                }
+            }).addOnProgressListener(new OnProgressListener<FileDownloadTask.TaskSnapshot>() {
+                @Override
+                public void onProgress(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                    // taskSnapshot.getBytesTransferred()
+                    // taskSnapshot.getTotalByteCount();
+                }
+            });
         } catch (IOException e) {
             e.printStackTrace();
         }
