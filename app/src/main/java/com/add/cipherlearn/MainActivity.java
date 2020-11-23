@@ -20,14 +20,14 @@ public class MainActivity extends AppCompatActivity {
     String [] ciphers = {"Atbash Cipher", "Polybius Square", "Porta", "Vigenere", "Autokey", "Playfair", "Random", "ROT13", "Caesar Cipher", "Affine Cipher", "Rail-fence"};
     TextView cipher_text;
     SharedPreferences sharedPreferencesCipher;
-    String ID_CIPHER = "cipher name";
+    String ID = "cipher name";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        sharedPreferencesCipher = getSharedPreferences(ID_CIPHER, MODE_PRIVATE);
+        sharedPreferencesCipher = getSharedPreferences(ID, MODE_PRIVATE);
 
         left = findViewById(R.id.left);
         right = findViewById(R.id.right);
@@ -61,9 +61,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                SharedPreferences.Editor cipher = sharedPreferencesCipher.edit();
-                cipher.putString(ID_CIPHER, cipher_text.getText().toString());
-                cipher.commit();
+                SharedPreferences.Editor editor = sharedPreferencesCipher.edit();
+                editor.putString(ID, ciphers[position]);
+                editor.commit();
 
                 Intent i = new Intent(MainActivity.this, Learn.class);
                 startActivity(i);
@@ -74,11 +74,12 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                SharedPreferences.Editor cipher = sharedPreferencesCipher.edit();
-                cipher.putString(ID_CIPHER, cipher_text.getText().toString());
-                cipher.commit();
+                SharedPreferences.Editor editor = sharedPreferencesCipher.edit();
+                editor.putString(ID, ciphers[position]);
+                editor.commit();
 
                 Intent i = new Intent(MainActivity.this, Practice.class);
+                i.putExtra("cipher name", cipher_text.getText().toString());
                 startActivity(i);
             }
         });

@@ -7,18 +7,9 @@
     android:orientation="vertical"
     tools:context=".Practice">
 
-    <com.google.android.material.appbar.AppBarLayout
+    <WebView
+        android:id="@+id/webview"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fitsSystemWindows="true"
-        android:id="@+id/app_bar"
-        android:theme="@style/Theme.MaterialComponents.DayNight.DarkActionBar">
-
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:popupTheme="@style/ThemeOverlay.MaterialComponents.Light"/>
-    </com.google.android.material.appbar.AppBarLayout>
+        android:layout_height="match_parent"/>
 
 </LinearLayout>
