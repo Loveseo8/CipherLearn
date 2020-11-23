@@ -51,12 +51,12 @@ public class Learn extends AppCompatActivity {
 
         getSupportActionBar().setTitle(cipher_name);
 
-        pathReference = storageRef.child("Learn/" + cipher_name.replace(" ", "") + ".html");
+        pathReference = storageRef.child("Learn/" + cipher_name + ".html");
 
 
         final File localFile;
         try {
-            localFile = File.createTempFile(cipher_name.replace(" ", ""), ".html");
+            localFile = File.createTempFile(cipher_name, ".html");
 
             pathReference.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
                 @Override
