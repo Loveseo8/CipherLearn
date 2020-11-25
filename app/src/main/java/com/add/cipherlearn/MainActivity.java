@@ -17,7 +17,7 @@ public class MainActivity extends AppCompatActivity {
     Button learn;
     Button practice;
     int position = 0;
-    String [] ciphers = {"Atbash Cipher", "Polybius Square", "Porta", "Vigenere", "Autokey", "Playfair", "Random", "ROT13", "Caesar Cipher", "Affine Cipher", "Rail-fence"};
+    String [] ciphers = {"Atbash Cipher", "ROT13 Cipher", "Caesar Cipher"};
     TextView cipher_text;
     SharedPreferences sharedPreferencesCipher;
     String ID = "cipher name";

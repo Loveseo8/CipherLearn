@@ -1,8 +1,11 @@
 package com.add.cipherlearn;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Display;
+import android.view.WindowManager;
 import android.webkit.WebView;
 import android.widget.TextView;
 
@@ -67,22 +70,19 @@ public class Learn extends AppCompatActivity {
                     documentView.getSettings().setAllowContentAccess(true);
                     documentView.getSettings().setAppCacheEnabled(true);
                     documentView.getSettings().setDomStorageEnabled(true);
-                    documentView.getSettings().setUseWideViewPort(true);
                     documentView.getSettings().setAllowFileAccessFromFileURLs(true);
                     documentView.getSettings().setAllowUniversalAccessFromFileURLs(true);
+
 
                     documentView.loadUrl("file:///" + localFile.getPath());
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception exception) {
-                    // Handle any errors
                 }
             }).addOnProgressListener(new OnProgressListener<FileDownloadTask.TaskSnapshot>() {
                 @Override
                 public void onProgress(FileDownloadTask.TaskSnapshot taskSnapshot) {
-                    // taskSnapshot.getBytesTransferred()
-                    // taskSnapshot.getTotalByteCount();
                 }
             });
         } catch (IOException e) {
