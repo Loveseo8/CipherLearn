@@ -12,15 +12,16 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
-    ImageView left;
-    ImageView right;
+    ImageView previousCipher;
+    ImageView nextCipher;
     Button learn;
     Button practice;
     int position = 0;
-    String [] ciphers = {"Atbash Cipher", "ROT13 Cipher", "Caesar Cipher"};
-    TextView cipher_text;
+    String [] ciphers = {"Atbash Cipher", "Baconian Cipher", "Caesar Cipher", "ROT13 Cipher", "Rail-fence Cipher", "Base64 Cipher", "Simple Substitution Cipher", "Columnar Transposition Cipher",
+    "Vigenère Cipher", "Bifid Cipher"};
+    TextView currentCipher;
     SharedPreferences sharedPreferencesCipher;
-    String ID = "cipher name";
+    String ID = "selected_cipher";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,31 +30,31 @@ public class MainActivity extends AppCompatActivity {
 
         sharedPreferencesCipher = getSharedPreferences(ID, MODE_PRIVATE);
 
-        left = findViewById(R.id.left);
-        right = findViewById(R.id.right);
+        previousCipher = findViewById(R.id.left);
+        nextCipher = findViewById(R.id.right);
         learn = findViewById(R.id.learn);
         practice = findViewById(R.id.practice);
-        cipher_text = findViewById(R.id.cipher_name);
+        currentCipher = findViewById(R.id.cipher_name);
 
-        cipher_text.setText(ciphers[position]);
+        currentCipher.setText(ciphers[position]);
 
-        left.setOnClickListener(new View.OnClickListener() {
+        previousCipher.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 position = (position + 1) % ciphers.length;
-                cipher_text.setText(ciphers[position]);
+                currentCipher.setText(ciphers[position]);
             }
         });
 
-        right.setOnClickListener(new View.OnClickListener() {
+        nextCipher.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 position = (position - 1);
                 if(position < 0) position += ciphers.length;
                 else position %= ciphers.length;
-                cipher_text.setText(ciphers[position]);
+                currentCipher.setText(ciphers[position]);
             }
         });
 
@@ -79,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
                 editor.commit();
 
                 Intent i = new Intent(MainActivity.this, Practice.class);
-                i.putExtra("cipher name", cipher_text.getText().toString());
+                i.putExtra("cipher name", currentCipher.getText().toString());
                 startActivity(i);
             }
         });

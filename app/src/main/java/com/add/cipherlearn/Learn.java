@@ -1,42 +1,28 @@
 package com.add.cipherlearn;
 
-import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.Display;
-import android.view.WindowManager;
 import android.webkit.WebView;
-import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
-
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.net.MalformedURLException;
-import java.util.Scanner;
 
 public class Learn extends AppCompatActivity {
 
-
     SharedPreferences sharedPreferencesCipher;
-    String cipher_name;
-    String ID = "cipher name";
+    String selected_cipher;
+    String ID = "selected_cipher";
     WebView documentView;
     FirebaseStorage storage = FirebaseStorage.getInstance();
     StorageReference storageRef = storage.getReference();
     StorageReference pathReference;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,20 +32,20 @@ public class Learn extends AppCompatActivity {
         sharedPreferencesCipher = getSharedPreferences(ID, MODE_PRIVATE);
         if(sharedPreferencesCipher.contains(ID)){
 
-            cipher_name = sharedPreferencesCipher.getString(ID, "");
+            selected_cipher = sharedPreferencesCipher.getString(ID, "");
 
         }
 
         documentView = findViewById(R.id.webview);
 
-        getSupportActionBar().setTitle(cipher_name);
+        getSupportActionBar().setTitle(selected_cipher);
 
-        pathReference = storageRef.child("Learn/" + cipher_name + ".html");
+        pathReference = storageRef.child("Learn/" + selected_cipher + ".html");
 
 
         final File localFile;
         try {
-            localFile = File.createTempFile(cipher_name, ".html");
+            localFile = File.createTempFile(selected_cipher, ".html");
 
             pathReference.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
                 @Override
