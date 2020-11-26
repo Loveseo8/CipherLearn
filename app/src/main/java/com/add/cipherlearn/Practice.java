@@ -45,6 +45,10 @@ public class Practice extends AppCompatActivity {
     String currentAnswer;
     int numberOfTasks = 0;
     EditText editText;
+    SharedPreferences sharedPreferencesUserScore;
+    String ID_USERSCORE = "user_score";
+    SharedPreferences sharedPreferencesNumber;
+    String ID_NUMBER = "number";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +58,9 @@ public class Practice extends AppCompatActivity {
         tT = findViewById(R.id.tasktext);
         next = findViewById(R.id.next);
         editText = findViewById(R.id.edit_text);
+
+        sharedPreferencesUserScore = getSharedPreferences(ID_USERSCORE, MODE_PRIVATE);
+        sharedPreferencesNumber = getSharedPreferences(ID_NUMBER, MODE_PRIVATE);
 
         next.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,6 +80,14 @@ public class Practice extends AppCompatActivity {
                     editText.setText("");
 
                     if(i == numberOfTasks - 1) {
+
+                        SharedPreferences.Editor editor = sharedPreferencesNumber.edit();
+                        editor.putString(ID_NUMBER, String.valueOf(numberOfTasks));
+                        editor.commit();
+
+                        SharedPreferences.Editor ed = sharedPreferencesUserScore.edit();
+                        ed.putString(ID_USERSCORE, String.valueOf(score));
+                        ed.commit();
 
                         Intent i = new Intent(Practice.this, ResultActivity.class);
                         startActivity(i);
