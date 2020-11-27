@@ -4,6 +4,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -77,7 +78,7 @@ public class Practice extends AppCompatActivity {
 
                 }else {
 
-                    if(editText.getText().equals(currentAnswer)) score++;
+                    if(userAnswer.contains(currentAnswer)) score += 1;
 
                     editText.setText("");
 
@@ -99,7 +100,7 @@ public class Practice extends AppCompatActivity {
                         i++;
 
                         tT.setText(tasksTexts.get(i));
-                        currentAnswer = tasksAnswers.get(i);
+                        currentAnswer = tasksAnswers.get(i).trim();
 
                     }
 
@@ -158,7 +159,8 @@ public class Practice extends AppCompatActivity {
                         }
 
                         tT.setText(tasksTexts.get(i));
-                        currentAnswer = tasksAnswers.get(i);
+                        currentAnswer = tasksAnswers.get(i).trim();
+                        if(editText.getText().equals(currentAnswer)) score += 1;
                         numberOfTasks = tasksAnswers.size();
                     }
 
