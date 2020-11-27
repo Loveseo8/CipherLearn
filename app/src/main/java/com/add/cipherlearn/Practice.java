@@ -52,6 +52,7 @@ public class Practice extends AppCompatActivity {
     String ID_USERSCORE = "user_score";
     SharedPreferences sharedPreferencesNumber;
     String ID_NUMBER = "number";
+    TextView copy;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
