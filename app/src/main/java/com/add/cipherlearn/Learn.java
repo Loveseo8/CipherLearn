@@ -61,7 +61,6 @@ public class Learn extends AppCompatActivity {
                     documentView.getSettings().setAllowFileAccessFromFileURLs(true);
                     documentView.getSettings().setAllowUniversalAccessFromFileURLs(true);
 
-
                     documentView.loadUrl("file:///" + localFile.getPath());
                 }
             }).addOnFailureListener(new OnFailureListener() {

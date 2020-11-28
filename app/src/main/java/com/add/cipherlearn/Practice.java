@@ -1,5 +1,8 @@
 package com.add.cipherlearn;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -9,6 +12,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -62,6 +67,19 @@ public class Practice extends AppCompatActivity {
         tT = findViewById(R.id.tasktext);
         next = findViewById(R.id.next);
         editText = findViewById(R.id.edit_text);
+        copy = findViewById(R.id.copy);
+
+        copy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+                ClipData clip = ClipData.newPlainText("task text", tasksTexts.get(i));
+                clipboard.setPrimaryClip(clip);
+
+                Toast toast = Toast.makeText(getApplicationContext(), "Text Copied", Toast.LENGTH_SHORT);
+                toast.show();
+            }
+        });
 
         sharedPreferencesUserScore = getSharedPreferences(ID_USERSCORE, MODE_PRIVATE);
         sharedPreferencesNumber = getSharedPreferences(ID_NUMBER, MODE_PRIVATE);

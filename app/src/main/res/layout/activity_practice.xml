@@ -5,11 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:layout_margin="10dp"
+    android:gravity="center"
     tools:context=".Practice">
 
     <TextView
         android:id="@+id/tasktext"
         android:textSize="20dp"
+        android:textAlignment="gravity"
         android:textColor="@color/black"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
