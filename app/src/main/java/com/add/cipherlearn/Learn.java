@@ -21,7 +21,7 @@ public class Learn extends AppCompatActivity {
     SharedPreferences sharedPreferencesCipher;
     String selected_cipher;
     String ID = "selected_cipher";
-    WebView documentView;
+    WebView webView;
     FirebaseStorage storage = FirebaseStorage.getInstance();
     StorageReference storageRef = storage.getReference();
     StorageReference pathReference;
@@ -38,7 +38,7 @@ public class Learn extends AppCompatActivity {
 
         }
 
-        documentView = findViewById(R.id.webview);
+        webView = findViewById(R.id.webview);
 
         getSupportActionBar().setTitle(selected_cipher);
 
@@ -53,15 +53,15 @@ public class Learn extends AppCompatActivity {
                 @Override
                 public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
 
-                    documentView.getSettings().setJavaScriptEnabled(true);
-                    documentView.getSettings().setAllowFileAccess(true);
-                    documentView.getSettings().setAllowContentAccess(true);
-                    documentView.getSettings().setAppCacheEnabled(true);
-                    documentView.getSettings().setDomStorageEnabled(true);
-                    documentView.getSettings().setAllowFileAccessFromFileURLs(true);
-                    documentView.getSettings().setAllowUniversalAccessFromFileURLs(true);
+                    webView.getSettings().setJavaScriptEnabled(true);
+                    webView.getSettings().setAllowFileAccess(true);
+                    webView.getSettings().setAllowContentAccess(true);
+                    webView.getSettings().setAppCacheEnabled(true);
+                    webView.getSettings().setDomStorageEnabled(true);
+                    webView.getSettings().setAllowFileAccessFromFileURLs(true);
+                    webView.getSettings().setAllowUniversalAccessFromFileURLs(true);
 
-                    documentView.loadUrl("file:///" + localFile.getPath());
+                    webView.loadUrl("file:///" + localFile.getPath());
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
